@@ -41,9 +41,13 @@ public class NewUser extends JPanel implements ActionListener {
         JButton b = (JButton)e.getSource();
         if(b.getText().equals("Crear Equipo Fantasia")) {
             String nombreEquipo = txtNombreEquipo.getText();
-            this.mainUI.crearEquipoFantasia(nombreEquipo);
-            this.mainUI.changeCenterPanel(new MainUser(mainUI)); // cambiar a panel de usuario ya registrado y chequear si admin o user
-        }
+            if (mainUI.tieneEquipoConMismoNombreEquiposUser(nombreEquipo) == false) {
+                this.mainUI.crearEquipoFantasia(nombreEquipo);
+                this.mainUI.changeCenterPanel(new MainUser(mainUI)); // cambiar a panel de usuario ya registrado y chequear si admin o user
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya tienes un equipo con el mismo nombre", "ERROR - Crear Equipo", JOptionPane.ERROR_MESSAGE);
+            }
+        } 
         if(b.getText().equals("Cerrar Sesion")) {
             this.mainUI.cerrarSesion();
             this.mainUI.changeCenterPanel(new Main(mainUI));

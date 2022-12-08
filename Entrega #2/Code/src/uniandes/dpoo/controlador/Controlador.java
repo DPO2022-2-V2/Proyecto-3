@@ -43,6 +43,10 @@ public class Controlador {
         this.temporada.crearEquipoFantasia(nombreEquipo);
     }
 
+    public boolean tieneEquipoConMismoNombreEquiposUser(String nombre) {
+		return temporada.tieneEquipoConMismoNombreEquiposUser(nombre);
+	}
+
     public void cargarPartido(String filePartido) {
         this.temporada.cargarDatosPartido(filePartido);
     }
@@ -114,6 +118,13 @@ public class Controlador {
 		this.temporada.elegirCapitanAlineacionTitular(jugador);
 	}
 
+    public void setUsingEquipoFantasia(EquipoFantasia equipo) {	
+		this.temporada.setUsingEquipoFantasia(equipo);
+	}
+
+    public ArrayList<EquipoFantasia> getUserEquiposFantasia() {
+		return this.temporada.getUserEquiposFantasia();
+	}
 
 
 

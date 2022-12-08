@@ -145,6 +145,18 @@ public class UI extends JFrame implements ActionListener {
 		this.controlador.elegirCapitanAlineacionTitular(jugador);
 	}
 
+    public boolean tieneEquipoConMismoNombreEquiposUser(String nombre) {
+		return controlador.tieneEquipoConMismoNombreEquiposUser(nombre);
+	}
+
+    public void setUsingEquipoFantasia(EquipoFantasia equipo) {	
+		this.controlador.setUsingEquipoFantasia(equipo);
+	}
+
+    public ArrayList<EquipoFantasia> getUserEquiposFantasia() {
+		return this.controlador.getUserEquiposFantasia();
+	}
+
     // Other
 
     @Override

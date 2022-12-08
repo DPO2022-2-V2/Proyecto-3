@@ -145,6 +145,10 @@ public class Temporada implements Serializable {
 
 	public void setUserUsingApp(Profile usuario) {
 		this.usuarioUsandoSistema = usuario;
+		if (usuario == null && usuario instanceof User) {
+			User currentUser = (User) this.usuarioUsandoSistema;
+			currentUser.cerrarSesion();
+		}
 	}
 
 	public ArrayList<ArrayList<Jugador>> getJugadoresEquipoFantasia() {
@@ -195,11 +199,21 @@ public class Temporada implements Serializable {
 		getAlineacionTitular().elegirCapitanAlineacionTitular(jugador);
 	}
 
+	public boolean tieneEquipoConMismoNombreEquiposUser(String nombre) {
+		User usuario = (User) getUsuarioUsandoSistema();
+		if (usuario != null) {
+			return usuario.tieneEquipoConMismoNombre(nombre);
+		} else {
+			return false;
+		}
+	}
+
 	public boolean userTieneEquipoFantasia() {
 		User usuario = (User) getUsuarioUsandoSistema();
-		EquipoFantasia val = usuario.getEquipoFantasia();
+		// EquipoFantasia val = usuario.getEquipoFantasia();
+		Integer val = usuario.getEquiposFantasia().size();
 		boolean res = false;
-		if (val != null) {
+		if (val != 0) {
 			res = true;
 		}
 		return res;
@@ -244,6 +258,16 @@ public class Temporada implements Serializable {
 
 	public HashMap<String, Profile> getUsuarios() {
 		return this.usuariosSistema;
+	}
+
+	public void setUsingEquipoFantasia(EquipoFantasia equipo) {	
+		User usuario = (User) getUsuarioUsandoSistema();
+		usuario.setUsingEquipoFantasia(equipo);
+	}
+
+	public ArrayList<EquipoFantasia> getUserEquiposFantasia() {
+		User usuario = (User) getUsuarioUsandoSistema();
+		return usuario.getEquiposFantasia();
 	}
 
 	public void addPointsPosition(int puntos, String posicion) {

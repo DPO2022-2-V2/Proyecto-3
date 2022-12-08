@@ -52,7 +52,7 @@ public class IniciarSesion extends JPanel implements ActionListener {
                 if (this.mainUI.userTieneEquipoFantasia() == false) {
                     this.mainUI.changeCenterPanel(new NewUser(mainUI));
                 } else {
-                    this.mainUI.changeCenterPanel(new MainUser(mainUI));
+                    this.mainUI.changeCenterPanel(new SeleccionarEquipo(mainUI)); // new MainUser(mainUI)
                 }
             }
              // cambiar a panel de usuario ya registrado y chequear si admin o user
