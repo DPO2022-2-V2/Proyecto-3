@@ -46,6 +46,9 @@ public class Partido implements Serializable {
 			int tarjetasAmarillasInstanciaJugador = Integer.parseInt(txtPartido[8]);//
 			int tarjetasRojasInstanciaJugador = Integer.parseInt(txtPartido[9]);
 			int autogolesInstanciaJugador = Integer.parseInt(txtPartido[10]);
+			int manosInstanciaJugador = Integer.parseInt(txtPartido[11]);
+			int tirosLibresInstanciaJugador = Integer.parseInt(txtPartido[12]);
+			int golesTirosLibres = Integer.parseInt(txtPartido[13]);
 			boolean gano = false;
 
 			String nombreEquipoLocal = instanciaEquipoLocal.getNombre();
@@ -60,7 +63,8 @@ public class Partido implements Serializable {
 						golesAnotadosInstanciaJugador,
 						golesEquipoVisitante, asistenciasInstanciaJugador, penaltiesAtajadosInstanciaJugador,
 						penaltiesErradosInstanciaJugador, tarjetasAmarillasInstanciaJugador,
-						tarjetasRojasInstanciaJugador, autogolesInstanciaJugador);
+						tarjetasRojasInstanciaJugador, autogolesInstanciaJugador,
+						manosInstanciaJugador, tirosLibresInstanciaJugador, golesTirosLibres);
 
 			} else if (nombreEquipoVisitante.equals(txtPartido[0])) {
 				if (golesEquipoLocal < golesEquipoVisitante) {
@@ -71,7 +75,8 @@ public class Partido implements Serializable {
 						golesAnotadosInstanciaJugador,
 						golesEquipoLocal, asistenciasInstanciaJugador, penaltiesAtajadosInstanciaJugador,
 						penaltiesErradosInstanciaJugador, tarjetasAmarillasInstanciaJugador,
-						tarjetasRojasInstanciaJugador, autogolesInstanciaJugador);
+						tarjetasRojasInstanciaJugador, autogolesInstanciaJugador,
+						manosInstanciaJugador, tirosLibresInstanciaJugador, golesTirosLibres);
 			}
 			jugadoresRegistrados += 1;
 		}

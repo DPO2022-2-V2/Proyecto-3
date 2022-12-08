@@ -1,0 +1,24 @@
+Abrir el proyecto desde la carpeta code
+
+Detalles puntos:
+- 
+
+Nuevos puntajes individuales (Empezar por este):
+- Punto por hacer mano | -1
+- Punto por cobrar un tiro libre | 1
+- Puntos por hacer gol de tiro libre (adicionales a los puntos por el gol) | 2
+- 
+
+Nuevos puntajes individuales combinaciones:
+- Puntos por hacer gol en tres partidos seguidos (aplica al tercer partido) | 10
+
+Nuevos puntajes grupales final:
+- Puntos en la ultima fecha si su eqwuipo quedo subcampeon de la liga | 10
+- Puntos en la ultima fecha si su equipo quedo subcampeon de la liga | 7
+- Puntos en la ultima fecha si su equipo quedo tercero en la liga | 5
+
+Nuevos puntajes grupales por fecha:
+- Puntos si ninguno de los jugadores del equipo perdio en su partido real | 10
+- Puntos si todos los jugadores del euipo ganaron su partido real | 15
+- Puntos si todos los jugadores titulares jugaron al menos 60minutos en su partido real | 5
+- Puntos adicionales para el mejor equipo de la liga de fantasia en cada fecha | 10

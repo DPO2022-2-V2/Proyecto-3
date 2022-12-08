@@ -37,7 +37,8 @@ public class Jugador implements Serializable, Comparable {
 	public void asignarPuntosJugador(boolean gano, int minutosJugados, int golesAnotados, int golesRecibidos,
 			int asistencias,
 			int penaltiesAtajados, int penaltiesErrados, int tarjetasAmarillas,
-			int tarjetasRojas, int autoGoles) {
+			int tarjetasRojas, int autoGoles,
+			int manos, int tirosLibres, int golTiroLibre) {
 		getPuntaje().setMinutosJugados(minutosJugados);
 		getPuntaje().setGolesAnotados(golesAnotados);
 		getPuntaje().setAsistencias(asistencias);
@@ -47,6 +48,9 @@ public class Jugador implements Serializable, Comparable {
 		getPuntaje().setTarjetasRojas(tarjetasRojas);
 		getPuntaje().setAutoGoles(autoGoles);
 		getPuntaje().setGolesRecibidos(golesRecibidos);
+		getPuntaje().setNumeroFaltaMano(manos);
+		getPuntaje().setTirosLibres(tirosLibres);
+		getPuntaje().setGolTiroLibre(golTiroLibre);
 		if (gano) {
 			getPuntaje().setGanoEquipo(gano);
 		}
