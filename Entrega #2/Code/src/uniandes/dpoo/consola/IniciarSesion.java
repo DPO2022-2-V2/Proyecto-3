@@ -47,7 +47,11 @@ public class IniciarSesion extends JPanel implements ActionListener {
             if (user == null) {
                 this.mainUI.changeCenterPanel(new Main(mainUI));
             } else if (user instanceof Admin) {
-                this.mainUI.changeCenterPanel(new MainAdmin(mainUI));
+                if (this.mainUI.getTerminoTemporada()) {
+                    this.mainUI.changeCenterPanel(new MainAdminTemporadaTerminada(mainUI));
+                } else {
+                    this.mainUI.changeCenterPanel(new MainAdmin(mainUI));
+                }
             } else {
                 if (this.mainUI.userTieneEquipoFantasia() == false) {
                     this.mainUI.changeCenterPanel(new NewUser(mainUI));

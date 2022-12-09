@@ -8,10 +8,9 @@ import java.awt.event.ActionListener;
 public class MainAdmin extends JPanel implements ActionListener {
     private UI mainUI;
     public MainAdmin(UI ui) {
+        this.mainUI = ui;
         this.setLayout(new GridBagLayout());
 
-        this.mainUI = ui;
-        
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.BOTH;
@@ -24,6 +23,10 @@ public class MainAdmin extends JPanel implements ActionListener {
         JButton cargarPartido = new JButton("Cargar Partido");
         cargarPartido.addActionListener(this);
         this.add(cargarPartido, gbc);
+
+        JButton terminarTemporada = new JButton("Terminar Temporada");
+        terminarTemporada.addActionListener(this);
+        this.add(terminarTemporada, gbc);
 
         JButton cerrarSesion = new JButton("Cerrar Sesion");
         cerrarSesion.addActionListener(this);
@@ -42,6 +45,11 @@ public class MainAdmin extends JPanel implements ActionListener {
         }
         if(b.getText().equals("Cargar Partido")) {
             this.mainUI.changeCenterPanel(new CargarPartido(mainUI));
+        }
+        if(b.getText().equals("Terminar Temporada")) {
+            this.mainUI.setTerminoTemporada();
+            this.mainUI.terminarTemporada();
+            this.mainUI.changeCenterPanel(new MainAdminTemporadaTerminada(mainUI));
         }
         if(b.getText().equals("Cerrar Sesion")) {
             this.mainUI.cerrarSesion();

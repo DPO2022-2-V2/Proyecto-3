@@ -13,12 +13,20 @@ Nuevos puntajes individuales combinaciones:
 - Puntos por hacer gol en tres partidos seguidos (aplica al tercer partido) | 10
 
 Nuevos puntajes grupales final:
-- Puntos en la ultima fecha si su eqwuipo quedo subcampeon de la liga | 10
+- Puntos en la ultima fecha si su equipo quedo subcampeon de la liga | 10
 - Puntos en la ultima fecha si su equipo quedo subcampeon de la liga | 7
 - Puntos en la ultima fecha si su equipo quedo tercero en la liga | 5
 
 Nuevos puntajes grupales por fecha:
-- Puntos si ninguno de los jugadores del equipo perdio en su partido real | 10
-- Puntos si todos los jugadores del euipo ganaron su partido real | 15
-- Puntos si todos los jugadores titulares jugaron al menos 60minutos en su partido real | 5
-- Puntos adicionales para el mejor equipo de la liga de fantasia en cada fecha | 10
+- puntos si ninguno de los jugadores del equipo perdió en su partido real. | 10 (si gana o empata, pero no pierde) (solo titulares)
+- puntos si todos los jugadores del equipo ganaron su partido real. | 15 (ganan todos) (solo titulares)
+Nota: Debido a implementaciones previas q tenian un nivel de ambiguedad alto, no fue posible lograr este requerimiento tal como dice
+decidimos que se le daran 10 puntos si los equipos empatan y al menos un jugador participante pertenece al equipo de fantasia, su equipo
+de fantasia recibira los puntos. Y los equipos de fantasia que tengan un jugador de los ganadores se llevaran 25 puntos. 
+
+- puntos si todos los jugadores titulares jugaron al menos 60 minutos en su partido real. | 5 
+
+
+
+- puntos adicionales para el mejor equipo de la liga de fantasía en cada fecha. | 10 (equipo con mas puntos) (el mejor equipo con puntos acumulados hasta esa fecha) - todos los equipos con la mayor cantidad de puntos
+

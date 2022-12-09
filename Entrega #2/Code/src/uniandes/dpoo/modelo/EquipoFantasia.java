@@ -76,6 +76,10 @@ public class EquipoFantasia extends Equipo implements Serializable, Comparable {
 		}
 	}
 
+	public void addPuntosEquipoSinRestricciones(int puntosGanados) {
+		this.puntosEquipo += puntosGanados;
+	}
+
 	// GETTERS & SETTERS
 
 	public ArrayList<ArrayList<Jugador>> getJugadores() {

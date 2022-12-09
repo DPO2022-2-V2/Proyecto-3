@@ -20,9 +20,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UI extends JFrame implements ActionListener {
+public class UI extends JFrame implements ActionListener, Serializable {
     private JLabel tituloInterfaz;
     private JPanel centerPanel;
     private Controlador controlador;
@@ -156,6 +157,18 @@ public class UI extends JFrame implements ActionListener {
     public ArrayList<EquipoFantasia> getUserEquiposFantasia() {
 		return this.controlador.getUserEquiposFantasia();
 	}
+
+    public boolean getTerminoTemporada() {
+        return this.controlador.getTerminoTemporada();
+    }
+
+    public void terminarTemporada() {
+        this.controlador.terminarTemporada();
+    }
+
+    public void setTerminoTemporada() {
+        this.controlador.setTerminoTemporada();
+    }
 
     // Other
 

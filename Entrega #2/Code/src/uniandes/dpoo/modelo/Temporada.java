@@ -9,7 +9,6 @@ import uniandes.dpoo.persistencia.ArchivoTemporada;
 
 import java.time.*;
 import java.time.format.*;
-import uniandes.dpoo.persistencia.*;
 
 public class Temporada implements Serializable {
 	private HashMap<String, EquipoReal> equipos = new HashMap<String, EquipoReal>();
@@ -19,6 +18,7 @@ public class Temporada implements Serializable {
 	private Profile usuarioUsandoSistema = null;
 	private int presupuestoEquiposFantasia = 0;
 	private ArrayList<ArrayList<Integer>> estadisticaPosicion = new ArrayList<ArrayList<Integer>>();
+    private boolean terminoTemporada;
 	
 	public Temporada() {
 		Administrador = new Admin("Admin", "Admin");
@@ -135,11 +135,97 @@ public class Temporada implements Serializable {
 		linea = datosPartido.get(1);
 		txtPartido = linea.split(";");
 		HashMap<String, Partido> partidos = getPartidos();
+
 		Partido instanciaPartido = partidos.get(txtPartido[0]);
 		int golesEquipoLocal = Integer.parseInt(txtPartido[1]);
 		int golesEquipoVisitante = Integer.parseInt(txtPartido[2]);
 
 		instanciaPartido.AsignarPuntajePartidoJugadores(golesEquipoLocal, golesEquipoVisitante, datosPartido);
+
+		ArrayList<EquipoFantasia> mejoresEquiposFecha = getMejorEquipoFecha();
+		for (EquipoFantasia instancia : mejoresEquiposFecha) {
+			instancia.addPuntosEquipo(10);
+			System.out.println(instancia.getNombre() + " - " + "se le sumaron puntos");
+		}
+
+		EquipoReal equipoPerdedor = null;
+		EquipoReal equipoGanador = null;
+		boolean ganaronEquipo = false;
+		boolean habiaJugador = false;
+		if (golesEquipoLocal < golesEquipoVisitante) {
+			equipoGanador = instanciaPartido.getEquipoVisitante();
+			equipoPerdedor = instanciaPartido.getEquipoLocal();
+		} else {
+			equipoGanador = instanciaPartido.getEquipoLocal();
+			equipoPerdedor = instanciaPartido.getEquipoVisitante();
+		}
+
+		if (equipoPerdedor != null) {
+			for (Profile profile : this.getUsuarios().values()) {
+				if (profile instanceof User) {
+					User user = (User) profile;
+					for (EquipoFantasia equipoDeFantasia : user.getEquiposFantasia()) {
+						ganaronEquipo = false;
+						habiaJugador = false;
+						for (String NombreJugador : equipoDeFantasia.getAlineacionTitular().getJugadores().keySet()) {
+							if (equipoGanador.getJugadores().containsKey(NombreJugador)) {
+								habiaJugador = true;
+							}
+							if (equipoPerdedor.getJugadores().containsKey(NombreJugador)) {
+								ganaronEquipo = true;
+								break;
+							}
+						}
+						if (ganaronEquipo == false && habiaJugador == true) {
+							equipoDeFantasia.addPuntosEquipo(25);
+						}
+					}
+				}
+			}
+		} else {
+			for (Profile profile : this.getUsuarios().values()) {
+				if (profile instanceof User) {
+					User user = (User) profile;
+					for (EquipoFantasia equipoDeFantasia : user.getEquiposFantasia()) {
+						habiaJugador = false;
+						for (String NombreJugador : equipoDeFantasia.getAlineacionTitular().getJugadores().keySet()) {
+							if (instanciaPartido.getEquipoVisitante().getJugadores().containsKey(NombreJugador) || instanciaPartido.getEquipoLocal().getJugadores().containsKey(NombreJugador)) {
+								habiaJugador = true;
+							}
+						}
+						if (habiaJugador == true) {
+							equipoDeFantasia.addPuntosEquipo(10);
+						}
+					}
+				}
+			}
+		}
+
+		int played = 0;
+
+		for (Profile profile : this.getUsuarios().values()) {
+			if (profile instanceof User) {
+				User user = (User) profile;
+				for (EquipoFantasia equipoDeFantasia : user.getEquiposFantasia()) {
+					played = 0;
+					for (String NombreJugador : equipoDeFantasia.getAlineacionTitular().getJugadores().keySet()) {
+						if (instanciaPartido.getEquipoLocal().getJugadores().get(NombreJugador).getPlayedHour() == false) {
+							played = -1;
+							break;
+						} else if (instanciaPartido.getEquipoVisitante().getJugadores().get(NombreJugador).getPlayedHour() == false) {
+							played = -1;
+							break;
+						} else {
+							played = 1;
+						}
+					}
+					if (played == 1) {
+						equipoDeFantasia.addPuntosEquipo(5);
+					}
+				}
+			}
+		}
+		
 
 	}
 
@@ -321,8 +407,69 @@ public class Temporada implements Serializable {
 		return this.estadisticaPosicion;
 	}
 
-
 	public ArrayList<ArrayList<Integer>> getEstadisticaPorPosicion() {
 		return this.estadisticaPosicion;
+	}
+
+	public boolean getTerminoTemporada() {
+        return this.terminoTemporada;
+    }
+
+    public void setTerminoTemporada() {
+        this.terminoTemporada = true;
+    }
+
+	public void terminarTemporada(){
+		estadisticas estadisticas = new estadisticas();
+		for (Profile profile : this.getUsuarios().values()) {
+			if (profile instanceof User) {
+				User user = (User) profile;
+				for (EquipoFantasia instance : user.getEquiposFantasia()) {
+					estadisticas.anadirEquipo(instance);
+				}
+			}
+		}
+		ArrayList<EquipoFantasia> rankingEquipos = estadisticas.getRanking();
+
+		int i = -1;
+		int max = -1;
+		for (EquipoFantasia instancia : rankingEquipos) {
+			if (instancia.getPuntosEquipo() != max) {
+				max = instancia.getPuntosEquipo();
+				i += 1;
+			}
+			if (i == 0) {
+				instancia.addPuntosEquipoSinRestricciones(10);
+			} else if (i == 1) {
+				instancia.addPuntosEquipoSinRestricciones(7);
+			} else if (i == 2) {
+				instancia.addPuntosEquipoSinRestricciones(5);
+			} else {
+				break;
+			}
+		}
+
+	}
+
+	public ArrayList<EquipoFantasia> getMejorEquipoFecha() {
+		estadisticas estadisticas = new estadisticas();
+		for (Profile profile : this.getUsuarios().values()) {
+			if (profile instanceof User) {
+				User user = (User) profile;
+				for (EquipoFantasia instance : user.getEquiposFantasia()) {
+					estadisticas.anadirEquipo(instance);
+				}
+			}
+		}
+		ArrayList<EquipoFantasia> rankingEquipos = estadisticas.getRanking();
+		ArrayList<EquipoFantasia> equiposMejoresEnFecha = new ArrayList<EquipoFantasia>();
+		int i = 0;
+		int maxPoints = rankingEquipos.get(0).getPuntosEquipo();
+		while (i < rankingEquipos.size() && rankingEquipos.get(i).getPuntosEquipo() == maxPoints) {
+			equiposMejoresEnFecha.add(rankingEquipos.get(i));
+			i++;
+		}
+
+		return equiposMejoresEnFecha;
 	}
 }

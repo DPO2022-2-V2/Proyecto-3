@@ -92,7 +92,9 @@ public class Controlador {
         for (Profile profile : this.temporada.getUsuarios().values()) {
             if (profile instanceof User) {
                 User user = (User) profile;
-                estadisticas.anadirEquipo(user.getEquipoFantasia());
+				for (EquipoFantasia instance : user.getEquiposFantasia()) {
+					estadisticas.anadirEquipo(instance);
+				}
             }
         }
         return estadisticas.getRanking();
@@ -125,6 +127,18 @@ public class Controlador {
     public ArrayList<EquipoFantasia> getUserEquiposFantasia() {
 		return this.temporada.getUserEquiposFantasia();
 	}
+
+    public boolean getTerminoTemporada() {
+        return this.temporada.getTerminoTemporada();
+    }
+
+    public void setTerminoTemporada() {
+        this.temporada.setTerminoTemporada();
+    }
+
+    public void terminarTemporada() {
+        this.temporada.terminarTemporada();
+    }
 
 
 

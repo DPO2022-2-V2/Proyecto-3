@@ -11,6 +11,7 @@ public class Jugador implements Serializable, Comparable {
 	private SistemaPuntos puntaje;
 	private int puntajeAcumuladoJugador;
 	private Temporada temporada;
+	private boolean playedHour = false;
 
 	public Jugador(String nombre, float precio, String posicion, Temporada tmp) {
 		this.nombre = nombre;
@@ -55,6 +56,10 @@ public class Jugador implements Serializable, Comparable {
 			getPuntaje().setGanoEquipo(gano);
 		}
 
+		if (minutosJugados >= 60) {
+			this.playedHour = true;
+		}
+
 		asignarPuntosAlineacionTitularPerteneciente();
 	}
 
@@ -87,6 +92,10 @@ public class Jugador implements Serializable, Comparable {
 		return this.posicion;
 	}
 
+	public boolean getPlayedHour() {
+		return this.playedHour;
+	}
+	
 	public int getPuntajeAcumuladoJugador() {
 		return this.puntajeAcumuladoJugador;
 	}

@@ -89,6 +89,9 @@ public class Partido implements Serializable {
 		}
 	}
 
+	public void agregarPuntosMejorEquipo() {
+		
+	}
 	// GETTERS
 	public EquipoReal getEquipoLocal() {
 		return equipoLocal;
