@@ -166,6 +166,10 @@ public class UI extends JFrame implements ActionListener, Serializable {
         this.controlador.terminarTemporada();
     }
 
+    public ArrayList<EquipoFantasia> exportTopTeams() {
+        return this.controlador.exportTopTeams();
+    }
+
     public void setTerminoTemporada() {
         this.controlador.setTerminoTemporada();
     }

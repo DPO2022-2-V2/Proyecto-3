@@ -188,9 +188,12 @@ public class Temporada implements Serializable {
 					User user = (User) profile;
 					for (EquipoFantasia equipoDeFantasia : user.getEquiposFantasia()) {
 						habiaJugador = false;
-						for (String NombreJugador : equipoDeFantasia.getAlineacionTitular().getJugadores().keySet()) {
-							if (instanciaPartido.getEquipoVisitante().getJugadores().containsKey(NombreJugador) || instanciaPartido.getEquipoLocal().getJugadores().containsKey(NombreJugador)) {
+						for (Jugador NombreJugador : equipoDeFantasia.getAlineacionTitular().getJugadores().values()) {
+							if ((instanciaPartido.getEquipoVisitante().getJugadores().containsKey(NombreJugador.getNombre()) || instanciaPartido.getEquipoLocal().getJugadores().containsKey(NombreJugador.getNombre())) && NombreJugador.getPlayedHour()) {
 								habiaJugador = true;
+							} else if ((instanciaPartido.getEquipoVisitante().getJugadores().containsKey(NombreJugador.getNombre()) || instanciaPartido.getEquipoLocal().getJugadores().containsKey(NombreJugador.getNombre())) && NombreJugador.getPlayedHour() == false) {
+								habiaJugador = false;
+								break;
 							}
 						}
 						if (habiaJugador == true) {
@@ -471,5 +474,17 @@ public class Temporada implements Serializable {
 		}
 
 		return equiposMejoresEnFecha;
+	}
+
+	public ArrayList<EquipoFantasia> exportTopTeams() {
+		estadisticas estadisticas = new estadisticas();
+		for (Profile profile : this.getUsuarios().values()) {
+			if (profile instanceof User) {
+				User user = (User) profile;
+				estadisticas.anadirEquipo(user.getEquipoFantasia());
+			}
+		}
+		ArrayList<EquipoFantasia> rankingEquipos = estadisticas.getRanking();
+		return rankingEquipos;
 	}
 }

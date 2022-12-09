@@ -49,6 +49,10 @@ public class MainUser extends JPanel implements ActionListener {
         desempenioJugadores.addActionListener(this);
         this.add(desempenioJugadores, gbc);
 
+        JButton exportarEstadisticas = new JButton("Exportar Estadisticas");
+        exportarEstadisticas.addActionListener(this);
+        this.add(exportarEstadisticas, gbc);
+
         JButton crearNuevoEquipo = new JButton("Crear Nuevo Equipo");
         crearNuevoEquipo.addActionListener(this);
         this.add(crearNuevoEquipo, gbc);
@@ -101,8 +105,11 @@ public class MainUser extends JPanel implements ActionListener {
         if(b.getText().equals("Aniadir Jugador Titular")) {
         	this.mainUI.changeCenterPanel(new AniadirJugador(mainUI));
         }
-        if(b.getText().equals("Remover Jugador Titular")) {
-        	this.mainUI.changeCenterPanel(new RemoverJugador(mainUI));
+        if(b.getText().equals("Aniadir Jugador Titular")) {
+        	this.mainUI.changeCenterPanel(new AniadirJugador(mainUI));
+        }
+        if(b.getText().equals("Exportar Estadisticas")) {
+        	this.mainUI.changeCenterPanel(new ExportarEstadisticas(mainUI));
         }
     }
 }

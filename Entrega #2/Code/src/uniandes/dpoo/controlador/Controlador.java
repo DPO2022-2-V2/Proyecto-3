@@ -140,8 +140,6 @@ public class Controlador {
         this.temporada.terminarTemporada();
     }
 
-
-
     public void cargarTemporada(String nombreArchivoJugadores, String nombreArchivoFechas, int presupuesto) {
         try {
             this.temporada.cargarDatosTemporada(nombreArchivoJugadores, nombreArchivoFechas, presupuesto);
@@ -149,5 +147,9 @@ public class Controlador {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<EquipoFantasia> exportTopTeams() {
+        return this.temporada.exportTopTeams();
     }
 }
