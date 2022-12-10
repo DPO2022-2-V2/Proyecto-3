@@ -152,4 +152,10 @@ public class Controlador {
     public ArrayList<EquipoFantasia> exportTopTeams() {
         return this.temporada.exportTopTeams();
     }
+
+    public ArrayList<Integer> getDatosCompraVenta() {
+        return this.temporada.getDatosCompraVenta();
+    }
+
+    
 }

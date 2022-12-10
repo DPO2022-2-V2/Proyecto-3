@@ -18,10 +18,19 @@ public class Temporada implements Serializable {
 	private Profile usuarioUsandoSistema = null;
 	private int presupuestoEquiposFantasia = 0;
 	private ArrayList<ArrayList<Integer>> estadisticaPosicion = new ArrayList<ArrayList<Integer>>();
+	private ArrayList<Integer> datosCompraVenta = new ArrayList<Integer>();
     private boolean terminoTemporada;
 	
 	public Temporada() {
 		Administrador = new Admin("Admin", "Admin");
+		datosCompraVenta.add(0);
+		datosCompraVenta.add(0);
+		datosCompraVenta.add(0);
+		datosCompraVenta.add(0);
+		datosCompraVenta.add(0);
+		datosCompraVenta.add(0);
+		datosCompraVenta.add(0);
+		datosCompraVenta.add(0);
 		usuariosSistema.put(Administrador.getNombre(), Administrador);
 	}
 
@@ -270,10 +279,34 @@ public class Temporada implements Serializable {
 
 	public void comprarJugadorEquipoFantasia(Jugador jugador) {
 		getEquipoFantasia().comprarJugador(jugador);
+		String posicionJugador = jugador.getPosicion();
+		if (posicionJugador.equals("arquero")) {
+			datosCompraVenta.set(3, datosCompraVenta.get(3) + 1);
+		} else if (posicionJugador.equals("defensa")) {
+			datosCompraVenta.set(2, datosCompraVenta.get(2) + 1);
+		} else if (posicionJugador.equals("delantero")) {
+			datosCompraVenta.set(0, datosCompraVenta.get(0) + 1);
+		} else if (posicionJugador.equals("medioCampista")) {
+			datosCompraVenta.set(1, datosCompraVenta.get(1) + 1);
+		}
 	}
 
 	public void venderJugadorEquipoFantasia(Jugador jugador) {
 		getEquipoFantasia().venderJugador(jugador);
+		String posicionJugador = jugador.getPosicion();
+		if (posicionJugador.equals("arquero")) {
+			datosCompraVenta.set(7, datosCompraVenta.get(7) + 1);
+		} else if (posicionJugador.equals("defensa")) {
+			datosCompraVenta.set(6, datosCompraVenta.get(6) + 1);
+		} else if (posicionJugador.equals("delantero")) {
+			datosCompraVenta.set(4, datosCompraVenta.get(4) + 1);
+		} else if (posicionJugador.equals("medioCampista")) {
+			datosCompraVenta.set(5, datosCompraVenta.get(5) + 1);
+		}
+	}
+
+	public ArrayList<Integer> getDatosCompraVenta() {
+		return this.datosCompraVenta;
 	}
 
 	public void asignarJugadorAlineacionTitular(Jugador jugador) {

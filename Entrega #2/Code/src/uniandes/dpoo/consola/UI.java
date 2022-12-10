@@ -175,6 +175,10 @@ public class UI extends JFrame implements ActionListener, Serializable {
         this.controlador.setTerminoTemporada();
     }
 
+    public ArrayList<Integer> getDatosCompraVenta() {
+        return this.controlador.getDatosCompraVenta();
+    }
+
     // Other
 
     @Override
