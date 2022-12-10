@@ -1,0 +1,23 @@
+Datos para probar:
+
+
+Credenciales:
+    Usuario #1:
+    username: user
+    password: user
+
+    Usuario #2:
+    username: user2
+    password: user2
+
+    Admin:
+    username: Admin
+    Password: Admin
+    
+- Dentro de ambos usuarios se pueden encontrar multiples equipos que pertenecen al mismo usuario
+- En el menu de usuario en la opcion "Estadistica" se encuentran las diferentes graficas solicitadas en el enunciado (estas generan un frame con la grafica cuando se preciona en el boton)
+- En la opcion "Crear Nuevo Equipo" se puede crear un nuevo equipo para el mismo usuario
+- En el menu del admin que se puede entrar iniciando sesion con las credenciales de admin se puede terminar la temporada y se le suman los puntos a los primeros tres lugares (cada uno dependiendo su puesto varian los puntos)
+Nota: los archivos de la temporada y de los partidos ya fueron precargados, asi que ya los puntos a cada equipo se le fueron datosJugadores
+- Para estas pruebas creamos 4 equipos, 3 que pueden recibir puntos y uno que debido a su mala configuracion no recibe puntos
+- Hay manejo de excepciones en la opcion de registro ya que el usuario y la contrasenia deben cubrir ciertas caracteristicasa

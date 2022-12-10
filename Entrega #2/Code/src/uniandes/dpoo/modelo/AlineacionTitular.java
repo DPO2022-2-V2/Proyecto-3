@@ -88,7 +88,7 @@ public class AlineacionTitular implements Serializable {
 		}
 	}
 
-	public void agregarPuntosEquipo(int puntosGanados) {
+	public void agregarPuntosEquipo(int puntosGanados, String posicionJugador) {
 		EquipoFantasia equipo = getEquipoPerteneciente();
 		if (getJugadores().size() == 11 & (
 
@@ -99,6 +99,7 @@ public class AlineacionTitular implements Serializable {
 
 		)) {
 			equipo.addPuntosEquipo(puntosGanados);
+			equipo.sumarPuntosPosicion(puntosGanados, posicionJugador);
 		} else {
 			System.out.println("ERROR: No hay jugadores suficientes en el equipo de fantasia " + equipo.getNombre());
 		}

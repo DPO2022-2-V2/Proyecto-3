@@ -157,5 +157,11 @@ public class Controlador {
         return this.temporada.getDatosCompraVenta();
     }
 
+    public EquipoFantasia getEquipoFantasia() {
+        return this.temporada.getEquipoFantasia();
+    }
+
+    
+
     
 }

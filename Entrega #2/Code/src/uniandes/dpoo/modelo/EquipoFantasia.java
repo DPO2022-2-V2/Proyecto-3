@@ -13,6 +13,7 @@ public class EquipoFantasia extends Equipo implements Serializable, Comparable {
 	private ArrayList<Jugador> defensores = new ArrayList<Jugador>();
 	private ArrayList<Jugador> mediocampistas = new ArrayList<Jugador>();
 	private ArrayList<Jugador> delanteros = new ArrayList<Jugador>();
+	private ArrayList<Integer> puntosPorTipoJugador = new ArrayList<Integer>();
 
 	public EquipoFantasia(String nombre, User duenio, int presupuesto) {
 		this.nombre = nombre;
@@ -20,6 +21,10 @@ public class EquipoFantasia extends Equipo implements Serializable, Comparable {
 		this.alineacionTitular = new AlineacionTitular(this);
 		this.presupuestoInicial = presupuesto;
 		this.presupuestoDisponible = presupuesto;
+		puntosPorTipoJugador.add(0);
+		puntosPorTipoJugador.add(0);
+		puntosPorTipoJugador.add(0);
+		puntosPorTipoJugador.add(0);
 	}
 
 	// FUNCIONALIDADES
@@ -147,6 +152,22 @@ public class EquipoFantasia extends Equipo implements Serializable, Comparable {
 
 	public ArrayList<Jugador> getDelanteros() {
 		return delanteros;
+	}
+
+	public void sumarPuntosPosicion(int puntos, String posicion) {
+		if (posicion.equals("arquero")) {
+			puntosPorTipoJugador.set(3, puntosPorTipoJugador.get(3) + puntos);
+		} else if (posicion.equals("defensa")) {
+			puntosPorTipoJugador.set(2, puntosPorTipoJugador.get(2) + puntos);
+		} else if (posicion.equals("delantero")) {
+			puntosPorTipoJugador.set(0, puntosPorTipoJugador.get(0) + puntos);
+		} else if (posicion.equals("medioCampista")) {
+			puntosPorTipoJugador.set(1, puntosPorTipoJugador.get(1) + puntos);
+		}
+	}
+
+	public ArrayList<Integer> getPuntosPorTipoJugador() {
+		return this.puntosPorTipoJugador;
 	}
 
 	@Override

@@ -35,21 +35,13 @@ public class ExportarEstadisticas extends JPanel implements ActionListener {
         estadisticaMercadoVentas.addActionListener(this);
         this.add(estadisticaMercadoVentas, gbc);
 
-        JButton estadisticaDesempenioJugadores = new JButton("Estadistica Desempenio Jugadores Equipo");
+        JButton estadisticaDesempenioJugadores = new JButton("Reporte comparativo de puntos de los jugadores de un equipo");
         estadisticaDesempenioJugadores.addActionListener(this);
         this.add(estadisticaDesempenioJugadores, gbc);
 
-        JButton provenenciaDePuentos = new JButton("Provenencia de puntos equipos reales");
-        provenenciaDePuentos.addActionListener(this);
-        this.add(provenenciaDePuentos, gbc);
-
-        JButton progresoEquiposDeFantasia = new JButton("Progreso equipos de fantasia");
+        JButton progresoEquiposDeFantasia = new JButton("Reporte progreso de puntos de equipos");
         progresoEquiposDeFantasia.addActionListener(this);
         this.add(progresoEquiposDeFantasia, gbc);
-
-        JButton gastosEquiposDeFantasia = new JButton("Estadistica gastos equipos de fantasia");
-        gastosEquiposDeFantasia.addActionListener(this);
-        this.add(gastosEquiposDeFantasia, gbc);
 
         JButton cerrarSesion = new JButton("Cerrar Sesion");
         cerrarSesion.addActionListener(this);
@@ -101,25 +93,15 @@ public class ExportarEstadisticas extends JPanel implements ActionListener {
             t.start();
         }
 
-        if(b.getText().equals("Estadistica Desempenio Jugadores Equipo")) {
+        if(b.getText().equals("Reporte comparativo de puntos de los jugadores de un equipo")) {
+            EquipoFantasia equipo = mainUI.getEquipoFantasia();
+            ArrayList<Integer> datos = equipo.getPuntosPorTipoJugador();
+            PieChart chart = new PieChartBuilder().width(800).height(600).title("Desempenio Jugadores Tu Equipo Fantasia").build();
             
-        }
-        
-        if(b.getText().equals("Provenencia de puntos equipos reales")) {
-            
-        }
-
-        if(b.getText().equals("Progreso equipos de fantasia")) {
-            ArrayList<EquipoFantasia> rankingEquipos = mainUI.exportTopTeams();
-            ArrayList<String> rankingEquiposNombres = new ArrayList<String>();
-            ArrayList<Integer> rankingEquiposPuntos = new ArrayList<Integer>();
-            for (EquipoFantasia equipo : rankingEquipos) {
-                rankingEquiposNombres.add(equipo.getNombre());
-                rankingEquiposPuntos.add(equipo.getPuntosEquipo());
-            }
-
-            CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("Puntajes Equipos | Fecha #" + rankingEquiposPuntos.size()).xAxisTitle("Equipo").yAxisTitle("Puntaje").build();
-            chart.addSeries("Fecha #" + rankingEquiposPuntos.size(), rankingEquiposNombres, rankingEquiposPuntos);
+            chart.addSeries("Delantero", datos.get(0));
+            chart.addSeries("Medio Campista", datos.get(1));
+            chart.addSeries("Defensa", datos.get(2));
+            chart.addSeries("Arquero", datos.get(3));
             
             Thread t = new Thread(new Runnable() {
                 @Override
@@ -130,9 +112,27 @@ public class ExportarEstadisticas extends JPanel implements ActionListener {
                });
             t.start();
         }
-        
-        if(b.getText().equals("Estadistica gastos equipos de fantasia")) {
+
+        if(b.getText().equals("Reporte progreso de puntos de equipos")) {
+            ArrayList<EquipoFantasia> rankingEquipos = mainUI.exportTopTeams();
+            ArrayList<String> rankingEquiposNombres = new ArrayList<String>();
+            ArrayList<Integer> rankingEquiposPuntos = new ArrayList<Integer>();
+            for (EquipoFantasia equipo : rankingEquipos) {
+                rankingEquiposNombres.add(equipo.getNombre());
+                rankingEquiposPuntos.add(equipo.getPuntosEquipo());
+            }
+
+            CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("Puntajes Equipos").xAxisTitle("Equipo").yAxisTitle("Puntaje").build();
+            chart.addSeries("Fecha", rankingEquiposNombres, rankingEquiposPuntos);
             
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    JFrame displayChart = new SwingWrapper(chart).displayChart();     
+                    displayChart.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                }
+               });
+            t.start();
         }
         
         if(b.getText().equals("Cerrar Sesion")) {

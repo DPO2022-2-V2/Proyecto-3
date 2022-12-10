@@ -73,7 +73,7 @@ public class Jugador implements Serializable, Comparable {
 			if (alineacionTitular.isCaptain(this) == true & puntaje.isGanoEquipo() == true) {
 				puntos += 5;
 			}
-			alineacionTitular.agregarPuntosEquipo(puntos);
+			alineacionTitular.agregarPuntosEquipo(puntos, this.posicion);
 		}
 		setPuntajeAcumuladoJugador(getPuntajeAcumuladoJugador() + puntos);
 	}

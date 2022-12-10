@@ -178,6 +178,10 @@ public class UI extends JFrame implements ActionListener, Serializable {
     public ArrayList<Integer> getDatosCompraVenta() {
         return this.controlador.getDatosCompraVenta();
     }
+    
+    public EquipoFantasia getEquipoFantasia() {
+        return this.controlador.getEquipoFantasia();
+    }
 
     // Other
 

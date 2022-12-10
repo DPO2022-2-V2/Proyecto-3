@@ -198,9 +198,9 @@ public class Temporada implements Serializable {
 					for (EquipoFantasia equipoDeFantasia : user.getEquiposFantasia()) {
 						habiaJugador = false;
 						for (Jugador NombreJugador : equipoDeFantasia.getAlineacionTitular().getJugadores().values()) {
-							if ((instanciaPartido.getEquipoVisitante().getJugadores().containsKey(NombreJugador.getNombre()) || instanciaPartido.getEquipoLocal().getJugadores().containsKey(NombreJugador.getNombre())) && NombreJugador.getPlayedHour()) {
+							if ((instanciaPartido.getEquipoVisitante().getJugadores().containsKey(NombreJugador.getNombre()) || instanciaPartido.getEquipoLocal().getJugadores().containsKey(NombreJugador.getNombre()))) {
 								habiaJugador = true;
-							} else if ((instanciaPartido.getEquipoVisitante().getJugadores().containsKey(NombreJugador.getNombre()) || instanciaPartido.getEquipoLocal().getJugadores().containsKey(NombreJugador.getNombre())) && NombreJugador.getPlayedHour() == false) {
+							} else if ((instanciaPartido.getEquipoVisitante().getJugadores().containsKey(NombreJugador.getNombre()) || instanciaPartido.getEquipoLocal().getJugadores().containsKey(NombreJugador.getNombre()))) {
 								habiaJugador = false;
 								break;
 							}
@@ -208,31 +208,6 @@ public class Temporada implements Serializable {
 						if (habiaJugador == true) {
 							equipoDeFantasia.addPuntosEquipo(10);
 						}
-					}
-				}
-			}
-		}
-
-		int played = 0;
-
-		for (Profile profile : this.getUsuarios().values()) {
-			if (profile instanceof User) {
-				User user = (User) profile;
-				for (EquipoFantasia equipoDeFantasia : user.getEquiposFantasia()) {
-					played = 0;
-					for (String NombreJugador : equipoDeFantasia.getAlineacionTitular().getJugadores().keySet()) {
-						if (instanciaPartido.getEquipoLocal().getJugadores().get(NombreJugador).getPlayedHour() == false) {
-							played = -1;
-							break;
-						} else if (instanciaPartido.getEquipoVisitante().getJugadores().get(NombreJugador).getPlayedHour() == false) {
-							played = -1;
-							break;
-						} else {
-							played = 1;
-						}
-					}
-					if (played == 1) {
-						equipoDeFantasia.addPuntosEquipo(5);
 					}
 				}
 			}

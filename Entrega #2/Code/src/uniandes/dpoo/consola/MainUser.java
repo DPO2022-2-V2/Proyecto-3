@@ -79,6 +79,9 @@ public class MainUser extends JPanel implements ActionListener {
         if(b.getText().equals("Vender Jugador")) {
             this.mainUI.changeCenterPanel(new venderJugador(mainUI));
         }
+        if(b.getText().equals("Remover Jugador Titular")) {
+            this.mainUI.changeCenterPanel(new RemoverJugador(mainUI));
+        }
         if(b.getText().equals("Ranking Equipos")) {
             this.mainUI.changeCenterPanel(new rankingEquipos(mainUI));
         }
