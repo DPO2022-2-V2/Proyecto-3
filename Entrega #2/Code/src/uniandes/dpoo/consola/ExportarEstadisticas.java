@@ -1,9 +1,18 @@
 package uniandes.dpoo.consola;
 
 import javax.swing.*;
+
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.SwingWrapper;
+
+import uniandes.dpoo.modelo.EquipoFantasia;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ExportarEstadisticas extends JPanel implements ActionListener {
     private UI mainUI;
@@ -28,7 +37,7 @@ public class ExportarEstadisticas extends JPanel implements ActionListener {
         provenenciaDePuentos.addActionListener(this);
         this.add(provenenciaDePuentos, gbc);
 
-        JButton progresoEquiposDeFantasia = new JButton("Progreso equipos de fantasia durante la temporada (por puntos)");
+        JButton progresoEquiposDeFantasia = new JButton("Progreso equipos de fantasia");
         progresoEquiposDeFantasia.addActionListener(this);
         this.add(progresoEquiposDeFantasia, gbc);
 
@@ -49,9 +58,40 @@ public class ExportarEstadisticas extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e){
         JButton b = (JButton)e.getSource();
         if(b.getText().equals("Estadistica Mercado")) {
-            this.mainUI.changeCenterPanel(new CargarTemporada(mainUI));
+            
         }
+        if(b.getText().equals("Estadistica Desempenio Jugadores Equipo")) {
+            
+        }
+        if(b.getText().equals("Provenencia de puntos equipos reales")) {
+            
+        }
+        if(b.getText().equals("Progreso equipos de fantasia")) {
+            ArrayList<EquipoFantasia> rankingEquipos = mainUI.exportTopTeams();
+            ArrayList<String> rankingEquiposNombres = new ArrayList<String>();
+            ArrayList<Integer> rankingEquiposPuntos = new ArrayList<Integer>();
+            for (EquipoFantasia equipo : rankingEquipos) {
+                rankingEquiposNombres.add(equipo.getNombre());
+                rankingEquiposPuntos.add(equipo.getPuntosEquipo());
+            }
 
+            CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("Puntajes Equipos | Fecha #" + rankingEquiposPuntos.size()).xAxisTitle("Equipo").yAxisTitle("Puntaje").build();
+            chart.addSeries("Fecha #" + rankingEquiposPuntos.size(), rankingEquiposNombres, rankingEquiposPuntos);
+            
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    JFrame displayChart = new SwingWrapper(chart).displayChart();     
+                    displayChart.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                }
+               });
+            t.start();
+        }
+        
+        if(b.getText().equals("Estadistica gastos equipos de fantasia")) {
+            
+        }
+        
         if(b.getText().equals("Cerrar Sesion")) {
             this.mainUI.cerrarSesion();
             this.mainUI.changeCenterPanel(new Main(mainUI));

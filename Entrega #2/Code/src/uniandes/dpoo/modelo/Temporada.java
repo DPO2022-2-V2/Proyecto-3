@@ -481,7 +481,9 @@ public class Temporada implements Serializable {
 		for (Profile profile : this.getUsuarios().values()) {
 			if (profile instanceof User) {
 				User user = (User) profile;
-				estadisticas.anadirEquipo(user.getEquipoFantasia());
+				for (EquipoFantasia equipo : user.getEquiposFantasia()) {
+					estadisticas.anadirEquipo(equipo);
+				}
 			}
 		}
 		ArrayList<EquipoFantasia> rankingEquipos = estadisticas.getRanking();
